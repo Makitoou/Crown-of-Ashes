@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://duuy3folmm8a6"]
+[gd_scene load_steps=12 format=3 uid="uid://duuy3folmm8a6"]
 
 [ext_resource type="Texture2D" uid="uid://lma0jtpvtlte" path="res://oak_woods_v1.0/background/background_layer_1.png" id="1_f2txt"]
 [ext_resource type="PackedScene" uid="uid://0y12nuthj0gd" path="res://Player/player.tscn" id="1_u52ul"]
@@ -445,6 +445,26 @@ func _process(delta):
 	text = \"HP: \" + str($\"../../Player/Player\".health)
 "
 
+[sub_resource type="GDScript" id="GDScript_n6hdu"]
+script/source = "extends Label
+
+func _process(delta):
+	text = \"GOLD: \" + str($\"../../Player/Player\".gold)
+"
+
+[sub_resource type="GDScript" id="GDScript_km5ld"]
+script/source = "extends Node2D
+
+var gold = preload(\"res://Collectibles/gold.tscn\")
+
+func _on_timer_timeout() -> void:
+	var goldTemp = gold.instantiate()
+	var rng = RandomNumberGenerator.new()
+	var randint = randi_range(50, 2260)
+	goldTemp.position = Vector2(randint, 570)
+	add_child(goldTemp)
+"
+
 [node name="Level" type="Node2D"]
 
 [node name="BG" type="ParallaxBackground" parent="."]
@@ -506,3 +526,21 @@ offset_bottom = 75.0
 theme_override_font_sizes/font_size = 30
 text = "HP"
 script = SubResource("GDScript_1ainy")
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 29.0
+offset_top = 55.0
+offset_right = 216.0
+offset_bottom = 119.0
+theme_override_font_sizes/font_size = 30
+text = "GOLD"
+script = SubResource("GDScript_n6hdu")
+
+[node name="Collectibles" type="Node2D" parent="."]
+script = SubResource("GDScript_km5ld")
+
+[node name="Timer" type="Timer" parent="Collectibles"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Collectibles/Timer" to="Collectibles" method="_on_timer_timeout"]

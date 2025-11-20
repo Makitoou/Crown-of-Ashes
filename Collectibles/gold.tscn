@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://duf2jsi43cm1b"]
+
+[ext_resource type="Script" uid="uid://bv2bsrq4bkqrr" path="res://Collectibles/gold.gd" id="1_finrr"]
+[ext_resource type="Texture2D" uid="uid://y3ifegwgi3gy" path="res://oak_woods_v1.0/coin_spin-Sheet.png" id="1_sikt3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_finrr"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naxcj"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63koj"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_symft"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33w3g"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(320, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8noh"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(400, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olc4a"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(480, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yuu1r"]
+atlas = ExtResource("1_sikt3")
+region = Rect2(560, 0, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_giscw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_finrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naxcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63koj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_symft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33w3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8noh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olc4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yuu1r")
+}],
+"loop": true,
+"name": &"Coin",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xj8c6"]
+
+[node name="Gold" type="Area2D"]
+script = ExtResource("1_finrr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.225, 0.225)
+sprite_frames = SubResource("SpriteFrames_giscw")
+animation = &"Coin"
+autoplay = "Coin"
+frame_progress = 0.729573
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xj8c6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
